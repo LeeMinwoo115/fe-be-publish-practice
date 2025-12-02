@@ -47,8 +47,6 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
-
-
 springdoc:
   default-produces-media-type: application/json
 
@@ -57,9 +55,22 @@ logging:
     org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE
     org.springframework.transaction.interceptor: TRACE
-    com.rest1: DEBUG
+    com.back: DEBUG
 
 custom:
   jwt:
     expireSeconds: "#{30 * 60}"
     secretPattern: ${CUSTOM_JWT_SECRET_PATTERN}
+
+  dev:
+    domain: localhost
+    backUrl: "http://${custom.dev.domain}:${server.port}"
+    frontUrl: "http://${custom.dev.domain}:3000"
+  prod:
+    domain: api.mmm3.click
+    backUrl: "https://api.${custom.prod.domain}"
+    frontUrl: "https://www.${custom.prod.domain}"
+  site:
+    domain: "${custom.dev.domain}"
+    backUrl: "${custom.dev.backUrl}"
+    frontUrl: "${custom.dev.frontUrl}"
